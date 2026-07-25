@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SENIDY TELECOM | Standard téléphonique professionnel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#accueil" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-senidy">SENIDY</span>
+          <span class="brand-telecom">TELECOM</span>
+        </div>
+      </a>
+      <button class="nav-toggle" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav">
+        <a href="#accueil">Accueil</a>
+        <a href="#produits">Produits</a>
+        <a href="#comment-ca-marche">Comment ça marche</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#temoignages">Témoignages</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-primary" id="contactCta">Demander un devis</button>
+        <button class="cart-button" id="cartToggle" aria-label="Voir le panier">
+          🛒 <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="hero-copy">
+        <span class="eyebrow">SENIDY TELECOM - Dakar</span>
+        <h1>Équipez votre entreprise avec des postes Alcatel fiables</h1>
+        <p>Postes Alcatel, coffrets OmniPCX et solutions téléphoniques professionnelles pour PME, administrations et entreprises modernes.</p>
+        <div class="hero-actions">
+          <a href="#produits" class="btn btn-primary">Voir nos produits</a>
+          <button class="btn btn-secondary" id="heroQuote">Demander un devis</button>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="images/8029.jpg" alt="Poste téléphonique professionnel Alcatel" class="hero-image">
+      </div>
+    </section>
+
+    <section class="trust-bar">
+      <div class="trust-item">✅ Matériel neuf et reconditionné garanti</div>
+      <div class="trust-item">🚚 Livraison à Dakar</div>
+      <div class="trust-item">⚙️ Installation et configuration incluses</div>
+      <div class="trust-item">📞 Support technique réactif</div>
+    </section>
+
+    <section class="products-section" id="produits">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Notre catalogue</span>
+          <h2>Postes téléphoniques et coffrets professionnels</h2>
+        </div>
+        <div class="filter-group">
+          <button class="filter-btn active" data-category="all">Tous</button>
+          <button class="filter-btn" data-category="postes">Postes téléphoniques</button>
+          <button class="filter-btn" data-category="coffrets">Coffrets PBX</button>
+        </div>
+      </div>
+      <div class="product-grid" id="productGrid">
+        <article class="product-card" data-category="postes">
+          <img src="images/8029.jpg" alt="Alcatel 8029 Premium DeskPhone">
+          <div class="product-content">
+            <h3>Alcatel 8029 Premium DeskPhone</h3>
+            <p>Poste de bureau haut de gamme avec écran couleur, Wi-Fi et Bluetooth intégrés.</p>
+            <span class="product-price">195 000 FCFA</span>
+            <span class="badge">Compatible OmniPCX</span>
+          </div>
+          <div class="product-actions">
+            <button class="btn btn-outline add-cart" data-id="8029" data-name="Alcatel 8029 Premium DeskPhone" data-price="195000">Ajouter au panier</button>
+            <button class="btn btn-secondary quote-product" data-name="Alcatel 8029 Premium DeskPhone">Demander un devis</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="postes">
+          <img src="images/8028.jpg" alt="Alcatel 8028 Premium DeskPhone">
+          <div class="product-content">
+            <h3>Alcatel 8028 Premium DeskPhone</h3>
+            <p>Poste robuste avec écran couleur, parfait pour environnements professionnels exigeants.</p>
+            <span class="product-price">175 000 FCFA</span>
+            <span class="badge">Compatible OmniPCX</span>
+          </div>
+          <div class="product-actions">
+            <button class="btn btn-outline add-cart" data-id="8028" data-name="Alcatel 8028 Premium DeskPhone" data-price="175000">Ajouter au panier</button>
+            <button class="btn btn-secondary quote-product" data-name="Alcatel 8028 Premium DeskPhone">Demander un devis</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="postes">
+          <img src="images/8038.jpg" alt="Alcatel 8038 Premium DeskPhone">
+          <div class="product-content">
+            <h3>Alcatel 8038 Premium DeskPhone</h3>
+            <p>Poste tactile moderne avec interface intuitive et intégration réseau avancée.</p>
+            <span class="product-price">230 000 FCFA</span>
+            <span class="badge">Compatible OmniPCX</span>
+          </div>
+          <div class="product-actions">
+            <button class="btn btn-outline add-cart" data-id="8038" data-name="Alcatel 8038 Premium DeskPhone" data-price="230000">Ajouter au panier</button>
+            <button class="btn btn-secondary quote-product" data-name="Alcatel 8038 Premium DeskPhone">Demander un devis</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="postes">
+          <img src="images/8068s.jpg" alt="Alcatel 8068s Premium DeskPhone">
+          <div class="product-content">
+            <h3>Alcatel 8068s Premium DeskPhone</h3>
+            <p>Poste de luxe avec audio HD, Ethernet PoE et fonctions de conférence avancées.</p>
+            <span class="product-price">265 000 FCFA</span>
+            <span class="badge">Compatible OmniPCX</span>
+          </div>
+          <div class="product-actions">
+            <button class="btn btn-outline add-cart" data-id="8068s" data-name="Alcatel 8068s Premium DeskPhone" data-price="265000">Ajouter au panier</button>
+            <button class="btn btn-secondary quote-product" data-name="Alcatel 8068s Premium DeskPhone">Demander un devis</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="postes">
+          <img src="images/8058s.jpg" alt="Alcatel 8058s Premium DeskPhone">
+          <div class="product-content">
+            <h3>Alcatel 8058s Premium DeskPhone</h3>
+            <p>Poste professionnel compact avec double port Ethernet et design épuré.</p>
+            <span class="product-price">210 000 FCFA</span>
+            <span class="badge">Compatible OmniPCX</span>
+          </div>
+          <div class="product-actions">
+            <button class="btn btn-outline add-cart" data-id="8058s" data-name="Alcatel 8058s Premium DeskPhone" data-price="210000">Ajouter au panier</button>
+            <button class="btn btn-secondary quote-product" data-name="Alcatel 8058s Premium DeskPhone">Demander un devis</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="coffrets">
+          <img src="images/omnipcx-compact.jpg" alt="Coffret OmniPCX Office compact">
+          <div class="product-content">
+            <h3>Coffret OmniPCX Office (compact)</h3>
+            <p>Solution PBX compacte pour PME avec support VoIP, analogique et SIP.</p>
+            <span class="product-price">Sur devis</span>
+          </div>
+          <div class="product-actions">
+            <button class="btn btn-outline add-cart" data-id="omnipcx-compact" data-name="Coffret OmniPCX Office (compact)" data-price="0">Ajouter au panier</button>
+            <button class="btn btn-secondary quote-product" data-name="Coffret OmniPCX Office (compact)">Demander un devis</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="coffrets">
+          <img src="images/omnipcx-standard.jpg" alt="Coffret OmniPCX Office standard">
+          <div class="product-content">
+            <h3>Coffret OmniPCX Office (standard)</h3>
+            <p>Standard téléphonique modulable pour installation sur-mesure et croissance.</p>
+            <span class="product-price">Sur devis</span>
+          </div>
+          <div class="product-actions">
+            <button class="btn btn-outline add-cart" data-id="omnipcx-standard" data-name="Coffret OmniPCX Office (standard)" data-price="0">Ajouter au panier</button>
+            <button class="btn btn-secondary quote-product" data-name="Coffret OmniPCX Office (standard)">Demander un devis</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="steps-section" id="comment-ca-marche">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Comment ça marche</span>
+          <h2>3 étapes simples pour moderniser votre standard</h2>
+        </div>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card">
+          <div class="step-icon">1</div>
+          <h3>Choisissez vos postes et coffrets</h3>
+          <p>Sélectionnez les modèles Alcatel et le coffret OmniPCX adaptés à votre entreprise.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-icon">2</div>
+          <h3>Passez commande ou demandez un devis</h3>
+          <p>Ajoutez au panier ou remplissez le formulaire pour une proposition personnalisée.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-icon">3</div>
+          <h3>Recevez, installez et profitez</h3>
+          <p>Livraison à Dakar, installation incluse et support SENIDY pour une mise en service rapide.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="pricing-section" id="tarifs">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Nos offres</span>
+          <h2>Tarifs clairs pour chaque projet télécom</h2>
+        </div>
+      </div>
+      <div class="pricing-grid">
+        <article class="pricing-card">
+          <h3>Offre Starter</h3>
+          <p class="pricing-amount">À partir de <strong>450 000 FCFA</strong></p>
+          <ul>
+            <li>Quelques postes Alcatel</li>
+            <li>Configuration de base</li>
+            <li>Support standard</li>
+          </ul>
+          <button class="btn btn-primary">Choisir cette offre</button>
+        </article>
+        <article class="pricing-card featured">
+          <h3>Offre Pro</h3>
+          <p class="pricing-amount">À partir de <strong>1 250 000 FCFA</strong></p>
+          <ul>
+            <li>Coffret OmniPCX + postes</li>
+            <li>Installation incluse</li>
+            <li>Garantie et support prioritaire</li>
+          </ul>
+          <button class="btn btn-primary">Choisir cette offre</button>
+        </article>
+        <article class="pricing-card">
+          <h3>Offre Entreprise</h3>
+          <p class="pricing-amount">Sur devis</p>
+          <ul>
+            <li>Solution complète sur-mesure</li>
+            <li>Support prioritaire</li>
+            <li>Formation et maintenance</li>
+          </ul>
+          <button class="btn btn-primary">Choisir cette offre</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="testimonials-section" id="temoignages">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Témoignages</span>
+          <h2>Ils nous font confiance à Dakar et dans toute la région</h2>
+        </div>
+      </div>
+      <div class="testimonial-grid">
+        <article class="testimonial-card">
+          <p>"SENIDY a livré nos postes Alcatel en temps et en heure. L'installation était propre et le support vraiment efficace."</p>
+          <div class="testimonial-meta">
+            <strong>Admin. Ministère des Transports</strong>
+            <span>★★★★★</span>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <p>"Une offre professionnelle avec des produits fiables. Le coffret OmniPCX fonctionne parfaitement dans notre PME."</p>
+          <div class="testimonial-meta">
+            <strong>Directeur IT - Société de Conseil</strong>
+            <span>★★★★★</span>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <p>"Le service après-vente est très réactif, et la configuration du standard a été réalisée sans accrocs."</p>
+          <div class="testimonial-meta">
+            <strong>Responsable Technique - Hôpital privé</strong>
+            <span>★★★★★</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <span class="eyebrow">Contact & Devis</span>
+          <h2>Demandez un devis personnalisé</h2>
+          <p>Remplissez le formulaire ou contactez-nous directement pour une proposition sur mesure et une assistance rapide.</p>
+          <ul class="contact-details">
+            <li>📍 Dakar, Sénégal</li>
+            <li>📞 +221 70 969 12 12</li>
+            <li>✉️ senidytelecom@gmail.com</li>
+            <li>⏰ Lun - Ven : 09h00 - 18h00</li>
+            <li>🕒 Sam : 09h00 - 15h00</li>
+          </ul>
+        </div>
+        <form class="contact-form" id="quoteForm">
+          <label>Nom complet<input type="text" id="clientName" placeholder="Votre nom" required></label>
+          <label>Entreprise<input type="text" id="clientCompany" placeholder="Nom de l'entreprise" required></label>
+          <label>Téléphone<input type="tel" id="clientPhone" placeholder="+221 77 000 00 00" required></label>
+          <label>Email<input type="email" id="clientEmail" placeholder="email@exemple.com" required></label>
+          <label>Besoin détaillé<textarea id="clientNeed" placeholder="Nombre de postes, type de coffret, installation souhaitée" rows="4"></textarea></label>
+          <label>Message libre<textarea id="clientMessage" placeholder="Dites-nous en plus sur votre projet" rows="3"></textarea></label>
+          <button type="submit" class="btn btn-primary">Envoyer la demande de devis</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <aside class="cart-sidebar" id="cartSidebar" aria-hidden="true">
+    <div class="cart-header">
+      <h2>Panier</h2>
+      <button class="close-cart" id="closeCart">✕</button>
+    </div>
+    <div class="cart-content" id="cartContent">
+      <p class="empty-cart">Votre panier est vide.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">Total : <strong id="cartTotal">0 FCFA</strong></div>
+      <div class="cart-actions">
+        <button class="btn btn-outline" id="clearCart">Vider le panier</button>
+        <button class="btn btn-primary" id="checkoutButton">Passer commande</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="checkout-modal" id="checkoutModal" aria-hidden="true">
+    <div class="checkout-inner">
+      <button class="close-modal" id="closeCheckout">✕</button>
+      <h2>Récapitulatif de commande</h2>
+      <div class="checkout-summary" id="checkoutSummary"></div>
+      <form class="checkout-form" id="orderForm">
+        <label>Nom complet<input type="text" id="orderName" placeholder="Votre nom" required></label>
+        <label>Entreprise<input type="text" id="orderCompany" placeholder="Nom de l'entreprise" required></label>
+        <label>Téléphone<input type="tel" id="orderPhone" placeholder="+221 77 000 00 00" required></label>
+        <label>Adresse<input type="text" id="orderAddress" placeholder="Adresse de livraison" required></label>
+        <button type="submit" class="btn btn-primary">Envoyer la commande</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <a href="#accueil" class="brand-logo footer-logo">
+          <div class="brand-text">
+            <span class="brand-senidy">SENIDY</span>
+            <span class="brand-telecom">TELECOM</span>
+          </div>
+        </a>
+        <p>Fournisseur de postes téléphoniques Alcatel et coffrets OmniPCX pour entreprises au Sénégal.</p>
+      </div>
+      <div>
+        <h3>Liens rapides</h3>
+        <nav class="footer-nav">
+          <a href="#accueil">Accueil</a>
+          <a href="#produits">Produits</a>
+          <a href="#comment-ca-marche">Comment ça marche</a>
+          <a href="#tarifs">Tarifs</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <h3>Coordonnées</h3>
+        <p>📍 Dakar, Sénégal</p>
+        <p>📞 +221 70 969 12 12</p>
+        <p>✉️ senidytelecom@gmail.com</p>
+        <p>🕒 Lun - Ven : 09h00 - 18h00</p>
+        <p>🕒 Sam : 09h00 - 15h00</p>
+      </div>
+      <div>
+        <h3>Suivez-nous</h3>
+        <div class="social-links">
+          <a href="#">Facebook</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 SENIDY TELECOM. Tous droits réservés.</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
