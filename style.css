@@ -369,6 +369,7 @@ img {
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .product-card img {
@@ -376,6 +377,13 @@ img {
   height: auto;
   max-height: 280px;
   object-fit: cover;
+}
+
+.product-actions {
+  display: grid;
+  gap: 0.85rem;
+  padding: 0 1.4rem 1.4rem;
+  margin-top: auto;
 }
 
 .product-content {
