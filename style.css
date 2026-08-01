@@ -417,6 +417,24 @@ img {
   padding: 0 1.4rem 1.4rem;
 }
 
+/* Hover effect for product action buttons to match filter buttons */
+.product-actions .btn-outline,
+.product-actions .btn-secondary,
+.product-actions .add-cart,
+.product-actions .quote-product {
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+}
+
+.product-actions .btn-outline:hover,
+.product-actions .btn-secondary:hover,
+.product-actions .add-cart:hover,
+.product-actions .quote-product:hover {
+  background: var(--blue);
+  color: #ffffff;
+  border-color: var(--blue);
+  box-shadow: 0 12px 34px rgba(43, 168, 196, 0.12);
+}
+
 .steps-grid,
 .pricing-grid,
 .testimonial-grid {
