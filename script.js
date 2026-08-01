@@ -122,11 +122,8 @@ function renderCart() {
 }
 
 function addToCart(id, name, price) {
-  if (cart[id]) {
-    cart[id].quantity += 1;
-  } else {
-    cart[id] = { id, name, price, quantity: 1 };
-  }
+  cart = {};
+  cart[id] = { id, name, price, quantity: 1 };
   renderCart();
   openCart();
 }
