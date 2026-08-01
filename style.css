@@ -261,6 +261,61 @@ img {
   margin-bottom: 1rem;
 }
 
+.testimonial-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.testimonial-form {
+  display: grid;
+  gap: 1rem;
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 1.8rem;
+  box-shadow: var(--shadow);
+}
+
+.testimonial-form label {
+  display: grid;
+  gap: 0.5rem;
+  color: #334155;
+  font-size: 0.95rem;
+}
+
+.testimonial-form input,
+.testimonial-form textarea,
+.testimonial-form select {
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 16px;
+  padding: 0.95rem 1rem;
+  background: #fff;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+
+.testimonial-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.testimonial-card {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.testimonial-meta {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  color: #1e293b;
+}
+
 .filter-group {
   display: flex;
   flex-wrap: wrap;

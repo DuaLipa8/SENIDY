@@ -283,28 +283,23 @@
           <h2>Ils nous font confiance à Dakar et dans toute la région</h2>
         </div>
       </div>
-      <div class="testimonial-grid">
-        <article class="testimonial-card">
-          <p>"SENIDY a livré nos postes Alcatel en temps et en heure. L'installation était propre et le support vraiment efficace."</p>
-          <div class="testimonial-meta">
-            <strong>Admin. Ministère des Transports</strong>
-            <span>★★★★★</span>
-          </div>
-        </article>
-        <article class="testimonial-card">
-          <p>"Une offre professionnelle avec des produits fiables. Le coffret OmniPCX fonctionne parfaitement dans notre PME."</p>
-          <div class="testimonial-meta">
-            <strong>Directeur IT - Société de Conseil</strong>
-            <span>★★★★★</span>
-          </div>
-        </article>
-        <article class="testimonial-card">
-          <p>"Le service après-vente est très réactif, et la configuration du standard a été réalisée sans accrocs."</p>
-          <div class="testimonial-meta">
-            <strong>Responsable Technique - Hôpital privé</strong>
-            <span>★★★★★</span>
-          </div>
-        </article>
+      <div class="testimonial-content">
+        <div class="testimonial-grid" id="testimonialGrid"></div>
+        <form class="testimonial-form" id="testimonialForm">
+          <label>Nom complet<input type="text" id="testimonialName" placeholder="Votre nom" required></label>
+          <label>Entreprise<input type="text" id="testimonialCompany" placeholder="Nom de l'entreprise" required></label>
+          <label>Note
+            <select id="testimonialRating" required>
+              <option value="5">★★★★★</option>
+              <option value="4">★★★★☆</option>
+              <option value="3">★★★☆☆</option>
+              <option value="2">★★☆☆☆</option>
+              <option value="1">★☆☆☆☆</option>
+            </select>
+          </label>
+          <label>Témoignage<textarea id="testimonialMessage" placeholder="Votre retour sur nos produits ou services" rows="4" required></textarea></label>
+          <button type="submit" class="btn btn-primary">Publier mon témoignage</button>
+        </form>
       </div>
     </section>
 

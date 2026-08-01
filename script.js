@@ -25,33 +25,45 @@ const productGrid = document.getElementById('productGrid');
 let cart = {};
 
 function toggleMobileNav() {
-  siteNav.classList.toggle('open');
+  if (siteNav) {
+    siteNav.classList.toggle('open');
+  }
 }
 
 function openCart() {
-  cartSidebar.classList.add('open');
-  cartSidebar.setAttribute('aria-hidden', 'false');
+  if (cartSidebar) {
+    cartSidebar.classList.add('open');
+    cartSidebar.setAttribute('aria-hidden', 'false');
+  }
 }
 
 function closeCartSidebar() {
-  cartSidebar.classList.remove('open');
-  cartSidebar.setAttribute('aria-hidden', 'true');
+  if (cartSidebar) {
+    cartSidebar.classList.remove('open');
+    cartSidebar.setAttribute('aria-hidden', 'true');
+  }
 }
 
 function openCheckout() {
-  checkoutModal.classList.add('open');
-  checkoutModal.setAttribute('aria-hidden', 'false');
+  if (checkoutModal) {
+    checkoutModal.classList.add('open');
+    checkoutModal.setAttribute('aria-hidden', 'false');
+  }
   renderCheckoutSummary();
 }
 
 function closeCheckoutModal() {
-  checkoutModal.classList.remove('open');
-  checkoutModal.setAttribute('aria-hidden', 'true');
+  if (checkoutModal) {
+    checkoutModal.classList.remove('open');
+    checkoutModal.setAttribute('aria-hidden', 'true');
+  }
 }
 
 function updateCartCount() {
   const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
-  cartCount.textContent = totalItems;
+  if (cartCount) {
+    cartCount.textContent = totalItems;
+  }
 }
 
 function formatPrice(value) {
@@ -60,11 +72,17 @@ function formatPrice(value) {
 
 function renderCart() {
   const items = Object.values(cart);
-  cartContent.innerHTML = '';
+  if (cartContent) {
+    cartContent.innerHTML = '';
+  }
 
   if (!items.length) {
-    cartContent.innerHTML = '<p class="empty-cart">Votre panier est vide.</p>';
-    cartTotal.textContent = formatPrice(0);
+    if (cartContent) {
+      cartContent.innerHTML = '<p class="empty-cart">Votre panier est vide.</p>';
+    }
+    if (cartTotal) {
+      cartTotal.textContent = formatPrice(0);
+    }
     updateCartCount();
     return;
   }
@@ -92,10 +110,14 @@ function renderCart() {
       </div>
     `;
 
-    cartContent.appendChild(cartItem);
+    if (cartContent) {
+      cartContent.appendChild(cartItem);
+    }
   });
 
-  cartTotal.textContent = items.some(item => item.price === 0) ? 'Sur devis' : formatPrice(total);
+  if (cartTotal) {
+    cartTotal.textContent = items.some(item => item.price === 0) ? 'Sur devis' : formatPrice(total);
+  }
   updateCartCount();
 }
 
@@ -129,8 +151,12 @@ function clearCart() {
 function renderCheckoutSummary() {
   const items = Object.values(cart);
   if (!items.length) {
-    checkoutSummary.innerHTML = '<p>Votre panier est vide. Ajoutez des produits avant de passer commande.</p>';
-    checkoutButton.disabled = true;
+    if (checkoutSummary) {
+      checkoutSummary.innerHTML = '<p>Votre panier est vide. Ajoutez des produits avant de passer commande.</p>';
+    }
+    if (checkoutButton) {
+      checkoutButton.disabled = true;
+    }
     return;
   }
 
@@ -139,22 +165,33 @@ function renderCheckoutSummary() {
   `).join('');
   const total = items.some(item => item.price === 0) ? 'Sur devis' : formatPrice(items.reduce((sum, item) => sum + item.price * item.quantity, 0));
 
-  checkoutSummary.innerHTML = `${summary}<p><strong>Total général : ${total}</strong></p>`;
+  if (checkoutSummary) {
+    checkoutSummary.innerHTML = `${summary}<p><strong>Total général : ${total}</strong></p>`;
+  }
 }
 
 function sendOrder(message, phone, subject) {
-  const whatsappNumber = '221770000000';
-  const text = encodeURIComponent(message);
+  const whatsappNumber = (phone || '221770000000').replace(/\D/g, '');
+  const text = encodeURIComponent(`[${subject}]\n${message}`);
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${text}`;
   window.open(whatsappUrl, '_blank');
 }
 
 function handleOrderFormSubmit(event) {
   event.preventDefault();
-  const name = document.getElementById('orderName').value.trim();
-  const company = document.getElementById('orderCompany').value.trim();
-  const phone = document.getElementById('orderPhone').value.trim();
-  const address = document.getElementById('orderAddress').value.trim();
+  const nameInput = document.getElementById('orderName');
+  const companyInput = document.getElementById('orderCompany');
+  const phoneInput = document.getElementById('orderPhone');
+  const addressInput = document.getElementById('orderAddress');
+
+  if (!nameInput || !companyInput || !phoneInput || !addressInput) {
+    return;
+  }
+
+  const name = nameInput.value.trim();
+  const company = companyInput.value.trim();
+  const phone = phoneInput.value.trim();
+  const address = addressInput.value.trim();
   const items = Object.values(cart);
 
   if (!items.length) {
@@ -172,26 +209,101 @@ function handleOrderFormSubmit(event) {
 
 function handleQuoteFormSubmit(event) {
   event.preventDefault();
-  const name = document.getElementById('clientName').value.trim();
-  const company = document.getElementById('clientCompany').value.trim();
-  const phone = document.getElementById('clientPhone').value.trim();
-  const email = document.getElementById('clientEmail').value.trim();
-  const need = document.getElementById('clientNeed').value.trim();
-  const messageText = document.getElementById('clientMessage').value.trim();
+  const nameInput = document.getElementById('clientName');
+  const companyInput = document.getElementById('clientCompany');
+  const phoneInput = document.getElementById('clientPhone');
+  const emailInput = document.getElementById('clientEmail');
+  const needInput = document.getElementById('clientNeed');
+  const messageInput = document.getElementById('clientMessage');
+
+  if (!nameInput || !companyInput || !phoneInput || !emailInput || !needInput || !messageInput) {
+    return;
+  }
+
+  const name = nameInput.value.trim();
+  const company = companyInput.value.trim();
+  const phone = phoneInput.value.trim();
+  const email = emailInput.value.trim();
+  const need = needInput.value.trim();
+  const messageText = messageInput.value.trim();
 
   const subject = encodeURIComponent('Demande de devis SENIDY TELECOM');
   const body = encodeURIComponent(`Nom: ${name}\nEntreprise: ${company}\nTéléphone: ${phone}\nEmail: ${email}\nBesoin: ${need}\nMessage: ${messageText}`);
   window.location.href = `mailto:contact@senidytelecom.sn?subject=${subject}&body=${body}`;
 }
 
+
+function renderTestimonials(testimonials) {
+  const testimonialGrid = document.getElementById('testimonialGrid');
+  if (!testimonialGrid) return;
+
+  testimonialGrid.innerHTML = testimonials.map(testimonial => `
+    <article class="testimonial-card">
+      <p>"${testimonial.message}"</p>
+      <div class="testimonial-meta">
+        <strong>${testimonial.name} - ${testimonial.company}</strong>
+        <span>${'★'.repeat(testimonial.rating)}${'☆'.repeat(5 - testimonial.rating)}</span>
+      </div>
+    </article>
+  `).join('');
+}
+
+function loadTestimonials() {
+  const stored = window.localStorage.getItem('senidyTestimonials');
+  return stored ? JSON.parse(stored) : [];
+}
+
+function saveTestimonials(testimonials) {
+  window.localStorage.setItem('senidyTestimonials', JSON.stringify(testimonials));
+}
+
+function handleTestimonialSubmit(event) {
+  event.preventDefault();
+  const nameInput = document.getElementById('testimonialName');
+  const companyInput = document.getElementById('testimonialCompany');
+  const ratingInput = document.getElementById('testimonialRating');
+  const messageInput = document.getElementById('testimonialMessage');
+
+  if (!nameInput || !companyInput || !ratingInput || !messageInput) {
+    return;
+  }
+
+  const testimonial = {
+    name: nameInput.value.trim(),
+    company: companyInput.value.trim(),
+    rating: Number(ratingInput.value),
+    message: messageInput.value.trim(),
+    date: new Date().toISOString()
+  };
+
+  if (!testimonial.name || !testimonial.company || !testimonial.message) {
+    alert('Veuillez remplir tous les champs du témoignage.');
+    return;
+  }
+
+  const testimonials = loadTestimonials();
+  testimonials.unshift(testimonial);
+  saveTestimonials(testimonials);
+  renderTestimonials(testimonials);
+  event.target.reset();
+}
+
 function prefillQuote(productName) {
   const needField = document.getElementById('clientNeed');
-  needField.value = `Demande pour ${productName} - quantité souhaitée : `;
-  document.getElementById('clientName').focus();
+  const nameField = document.getElementById('clientName');
+  if (needField) {
+    needField.value = `Demande pour ${productName} - quantité souhaitée : `;
+  }
+  if (nameField) {
+    nameField.focus();
+  }
   window.location.hash = '#contact';
 }
 
 function filterProducts(category) {
+  if (!productGrid) {
+    return;
+  }
   const cards = productGrid.querySelectorAll('.product-card');
   cards.forEach(card => {
     const cardCategory = card.dataset.category;
@@ -214,50 +326,82 @@ function handleScrollAnimations() {
   });
 }
 
-navToggle.addEventListener('click', toggleMobileNav);
-cartToggle.addEventListener('click', openCart);
-closeCart.addEventListener('click', closeCartSidebar);
-clearCartButton.addEventListener('click', clearCart);
-checkoutButton.addEventListener('click', openCheckout);
-closeCheckout.addEventListener('click', closeCheckoutModal);
-orderForm.addEventListener('submit', handleOrderFormSubmit);
-quoteForm.addEventListener('submit', handleQuoteFormSubmit);
-heroQuote.addEventListener('click', () => prefillQuote('postes Alcatel ou coffret OmniPCX'));
-contactCta.addEventListener('click', () => prefillQuote('postes Alcatel ou coffret OmniPCX'));
+function initApp() {
+  if (navToggle) {
+    navToggle.addEventListener('click', toggleMobileNav);
+  }
+  if (cartToggle) {
+    cartToggle.addEventListener('click', openCart);
+  }
+  if (closeCart) {
+    closeCart.addEventListener('click', closeCartSidebar);
+  }
+  if (clearCartButton) {
+    clearCartButton.addEventListener('click', clearCart);
+  }
+  if (checkoutButton) {
+    checkoutButton.addEventListener('click', openCheckout);
+  }
+  if (closeCheckout) {
+    closeCheckout.addEventListener('click', closeCheckoutModal);
+  }
+  if (orderForm) {
+    orderForm.addEventListener('submit', handleOrderFormSubmit);
+  }
+  if (quoteForm) {
+    quoteForm.addEventListener('submit', handleQuoteFormSubmit);
+  }
+  const testimonialForm = document.getElementById('testimonialForm');
+  if (testimonialForm) {
+    testimonialForm.addEventListener('submit', handleTestimonialSubmit);
+  }
+  if (heroQuote) {
+    heroQuote.addEventListener('click', () => prefillQuote('postes Alcatel ou coffret OmniPCX'));
+  }
+  if (contactCta) {
+    contactCta.addEventListener('click', () => prefillQuote('postes Alcatel ou coffret OmniPCX'));
+  }
 
-addCartButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    addToCart(button.dataset.id, button.dataset.name, Number(button.dataset.price));
+  addCartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      addToCart(button.dataset.id, button.dataset.name, Number(button.dataset.price));
+    });
   });
-});
 
-quoteProductButtons.forEach(button => {
-  button.addEventListener('click', () => prefillQuote(button.dataset.name));
-});
-
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    filterButtons.forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
-    filterProducts(button.dataset.category);
+  quoteProductButtons.forEach(button => {
+    button.addEventListener('click', () => prefillQuote(button.dataset.name));
   });
-});
 
-cartContent.addEventListener('click', event => {
-  const action = event.target.dataset.action;
-  const id = event.target.dataset.id;
-  if (action === 'increase') {
-    changeCartQuantity(id, 1);
-  }
-  if (action === 'decrease') {
-    changeCartQuantity(id, -1);
-  }
-  if (event.target.classList.contains('remove-item')) {
-    removeCartItem(id);
-  }
-});
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      filterProducts(button.dataset.category);
+    });
+  });
 
-window.addEventListener('scroll', handleScrollAnimations);
+  if (cartContent) {
+    cartContent.addEventListener('click', event => {
+      const action = event.target.dataset.action;
+      const id = event.target.dataset.id;
+      if (action === 'increase') {
+        changeCartQuantity(id, 1);
+      }
+      if (action === 'decrease') {
+        changeCartQuantity(id, -1);
+      }
+      if (event.target.classList.contains('remove-item')) {
+        removeCartItem(id);
+      }
+    });
+  }
+
+  window.addEventListener('scroll', handleScrollAnimations);
+  handleScrollAnimations();
+  renderTestimonials(loadTestimonials());
+}
+
+initApp();
 window.addEventListener('load', () => {
   renderCart();
   handleScrollAnimations();
