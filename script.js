@@ -84,6 +84,7 @@ function renderCart() {
       cartTotal.textContent = formatPrice(0);
     }
     updateCartCount();
+    updateCartWarning(items);
     return;
   }
 
@@ -119,6 +120,27 @@ function renderCart() {
     cartTotal.textContent = items.some(item => item.price === 0) ? 'Sur devis' : formatPrice(total);
   }
   updateCartCount();
+  updateCartWarning(items);
+}
+
+function updateCartWarning(items) {
+  const cartWarning = document.getElementById('cartWarning');
+  const hasEstimate = items.some(item => item.price === 0);
+  if (!cartWarning) return;
+
+  if (hasEstimate) {
+    cartWarning.innerHTML = '<p class="warning-text">Ce produit est sur devis. La commande en ligne est désactivée pour les articles sans prix fixe.</p>';
+    if (checkoutButton) {
+      checkoutButton.disabled = true;
+      checkoutButton.classList.add('btn-disabled');
+    }
+  } else {
+    cartWarning.innerHTML = '';
+    if (checkoutButton) {
+      checkoutButton.disabled = false;
+      checkoutButton.classList.remove('btn-disabled');
+    }
+  }
 }
 
 function addToCart(id, name, price) {
