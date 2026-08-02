@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS public.quotes (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name TEXT NOT NULL,
+  company TEXT,
+  phone TEXT NOT NULL,
+  email TEXT NOT NULL,
+  need TEXT NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS public.orders (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name TEXT NOT NULL,
+  company TEXT,
+  phone TEXT NOT NULL,
+  address TEXT NOT NULL,
+  order_lines TEXT NOT NULL,
+  total TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);

@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS public.testimonials (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name TEXT NOT NULL,
+  company TEXT,
+  rating INTEGER NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);

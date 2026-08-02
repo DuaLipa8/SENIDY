@@ -23,6 +23,41 @@ const filterButtons = document.querySelectorAll('.filter-btn');
 const productGrid = document.getElementById('productGrid');
 
 const SITE_WHATSAPP_NUMBER = '221709691212';
+const SUPABASE_URL = window.SUPABASE_URL || '';
+const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || '';
+const supabaseClient = (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY)
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : null;
+const isSupabaseReady = Boolean(supabaseClient && SUPABASE_URL && SUPABASE_ANON_KEY);
+
+if (SUPABASE_URL && SUPABASE_ANON_KEY && !supabaseClient) {
+  console.warn('Supabase configuration is present, but the client could not be created.');
+}
+
+async function saveQuoteRequest(quote) {
+  if (!isSupabaseReady) return;
+
+  const { error } = await supabaseClient
+    .from('quotes')
+    .insert([quote]);
+
+  if (error) {
+    console.warn('Could not save quote request to Supabase:', error.message);
+  }
+}
+
+async function saveOrderRequest(order) {
+  if (!isSupabaseReady) return;
+
+  const { error } = await supabaseClient
+    .from('orders')
+    .insert([order]);
+
+  if (error) {
+    console.warn('Could not save order request to Supabase:', error.message);
+  }
+}
+
 let cart = {};
 
 function toggleMobileNav() {
@@ -237,6 +272,16 @@ function handleOrderFormSubmit(event) {
     `Total: ${total}`
   ].join('\n');
 
+  saveOrderRequest({
+    name,
+    company,
+    phone,
+    address,
+    order_lines: orderLines,
+    total,
+    created_at: new Date().toISOString(),
+  });
+
   openWhatsApp(message, 'Commande SENIDY TELECOM', SITE_WHATSAPP_NUMBER);
   closeCheckoutModal();
 }
@@ -270,6 +315,16 @@ function handleQuoteFormSubmit(event) {
     `Message: ${messageText}`
   ].join('\n');
 
+  saveQuoteRequest({
+    name,
+    company,
+    phone,
+    email,
+    need,
+    message: messageText,
+    created_at: new Date().toISOString(),
+  });
+
   openWhatsApp(message, 'Demande de devis SENIDY TELECOM', SITE_WHATSAPP_NUMBER);
 }
 
@@ -291,11 +346,60 @@ function renderTestimonials(testimonials) {
 
 function loadTestimonials() {
   const stored = window.localStorage.getItem('senidyTestimonials');
-  return stored ? JSON.parse(stored) : [];
+  const testimonials = stored ? JSON.parse(stored) : [];
+
+  if (!supabaseClient) {
+    return testimonials;
+  }
+
+  supabaseClient
+    .from('testimonials')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(20)
+    .then(({ data, error }) => {
+      if (error) {
+        console.warn('Supabase testimonials load failed:', error.message);
+        return;
+      }
+      if (data && data.length) {
+        renderTestimonials(data);
+        window.localStorage.setItem('senidyTestimonials', JSON.stringify(data));
+      }
+    })
+    .catch((error) => {
+      console.warn('Supabase testimonials request failed:', error.message || error);
+    });
+
+  return testimonials;
 }
 
 function saveTestimonials(testimonials) {
   window.localStorage.setItem('senidyTestimonials', JSON.stringify(testimonials));
+
+  if (!supabaseClient || !testimonials.length) {
+    return;
+  }
+
+  const latest = testimonials[0];
+  if (!latest || latest.synced) {
+    return;
+  }
+
+  supabaseClient
+    .from('testimonials')
+    .insert([{ name: latest.name, company: latest.company, rating: latest.rating, message: latest.message, created_at: latest.date }])
+    .then(({ error }) => {
+      if (error) {
+        console.warn('Could not save testimonial to Supabase:', error.message);
+        return;
+      }
+      latest.synced = true;
+      window.localStorage.setItem('senidyTestimonials', JSON.stringify(testimonials));
+    })
+    .catch((error) => {
+      console.warn('Supabase insert failed:', error.message || error);
+    });
 }
 
 function handleTestimonialSubmit(event) {
