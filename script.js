@@ -494,6 +494,91 @@ function handleScrollAnimations() {
   });
 }
 
+function initHeroCarousel() {
+  const heroCarousel = document.querySelector('.hero-carousel');
+  const slides = Array.from(document.querySelectorAll('.hero-carousel .hero-image'));
+  const prevButton = document.querySelector('.hero-carousel .carousel-btn.prev');
+  const nextButton = document.querySelector('.hero-carousel .carousel-btn.next');
+  const dotsContainer = document.querySelector('.hero-carousel .carousel-dots');
+
+  if (!heroCarousel || !slides.length) {
+    return;
+  }
+
+  let activeIndex = 0;
+  let autoplayId = null;
+
+  function renderDots() {
+    if (!dotsContainer) return;
+
+    dotsContainer.innerHTML = '';
+    slides.forEach((_, index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = `carousel-dot${index === activeIndex ? ' active' : ''}`;
+      dot.setAttribute('aria-label', `Afficher l'image ${index + 1}`);
+      dot.addEventListener('click', () => {
+        showSlide(index);
+        restartAutoplay();
+      });
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  function showSlide(index) {
+    const previousIndex = activeIndex;
+    activeIndex = (index + slides.length) % slides.length;
+
+    slides.forEach((slide, slideIndex) => {
+      slide.classList.remove('is-active', 'is-leaving');
+      if (slideIndex === previousIndex && slideIndex !== activeIndex) {
+        slide.classList.add('is-leaving');
+      }
+      if (slideIndex === activeIndex) {
+        slide.classList.add('is-active');
+      }
+    });
+
+    renderDots();
+  }
+
+  function nextSlide() {
+    showSlide(activeIndex + 1);
+  }
+
+  function restartAutoplay() {
+    if (autoplayId) {
+      window.clearInterval(autoplayId);
+    }
+    autoplayId = window.setInterval(nextSlide, 3000);
+  }
+
+  if (prevButton) {
+    prevButton.addEventListener('click', () => {
+      showSlide(activeIndex - 1);
+      restartAutoplay();
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener('click', () => {
+      showSlide(activeIndex + 1);
+      restartAutoplay();
+    });
+  }
+
+  heroCarousel.addEventListener('mouseenter', () => {
+    if (autoplayId) {
+      window.clearInterval(autoplayId);
+    }
+  });
+
+  heroCarousel.addEventListener('mouseleave', restartAutoplay);
+
+  showSlide(0);
+  restartAutoplay();
+}
+
 function initApp() {
   if (navToggle) {
     navToggle.addEventListener('click', toggleMobileNav);
@@ -564,6 +649,7 @@ function initApp() {
     });
   }
 
+  initHeroCarousel();
   window.addEventListener('scroll', handleScrollAnimations);
   handleScrollAnimations();
   renderTestimonials(loadTestimonials());

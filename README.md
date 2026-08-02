@@ -22,10 +22,16 @@ Ouvre `index.html` dans ton navigateur ou utilise un serveur local.
 
 ## Supabase
 
-- Le projet est connecté à Supabase via `supabase-config.js`
+- Le projet est connecté à Supabase via un fichier local `supabase-config.js`
 - URL distante : `https://skedemgmscxyfpbmwdyc.supabase.co`
 - Tables créées : `testimonials`, `quotes`, `orders`
 - Le frontend utilise `@supabase/supabase-js` pour stocker les témoignages, demandes de devis et commandes
+
+### Configuration locale Supabase
+
+1. Copie `supabase-config.example.js` en `supabase-config.js`
+2. Remplace `SUPABASE_URL` et `SUPABASE_ANON_KEY` par tes valeurs
+3. Ne commit pas `supabase-config.js` car il contient des clés d’accès
 
 ### Démarrage local
 

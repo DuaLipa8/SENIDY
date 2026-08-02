@@ -19,5 +19,9 @@ dist/
 build/
 publish/
 
+# Environment
+.env
+supabase-config.js
+
 # OS generated files
 desktop.ini
