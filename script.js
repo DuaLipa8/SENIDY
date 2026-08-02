@@ -22,6 +22,7 @@ const addCartButtons = document.querySelectorAll('.add-cart');
 const filterButtons = document.querySelectorAll('.filter-btn');
 const productGrid = document.getElementById('productGrid');
 
+const SITE_WHATSAPP_NUMBER = '221709691212';
 let cart = {};
 
 function toggleMobileNav() {
@@ -144,8 +145,11 @@ function updateCartWarning(items) {
 }
 
 function addToCart(id, name, price) {
-  cart = {};
-  cart[id] = { id, name, price, quantity: 1 };
+  if (!cart[id]) {
+    cart[id] = { id, name, price, quantity: 1 };
+  } else {
+    cart[id].quantity += 1;
+  }
   renderCart();
   openCart();
 }
@@ -189,11 +193,11 @@ function renderCheckoutSummary() {
   }
 }
 
-function sendOrder(message, phone, subject) {
-  const whatsappNumber = (phone || '221770000000').replace(/\D/g, '');
-  const text = encodeURIComponent(`[${subject}]\n${message}`);
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${text}`;
-  window.open(whatsappUrl, '_blank');
+function openWhatsApp(message, subject, phone = SITE_WHATSAPP_NUMBER) {
+  const whatsappNumber = (phone || SITE_WHATSAPP_NUMBER).replace(/\D/g, '');
+  const fullMessage = [subject ? `[${subject}]` : '', message].filter(Boolean).join('\n');
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(fullMessage)}`;
+  window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 }
 
 function handleOrderFormSubmit(event) {
@@ -221,8 +225,19 @@ function handleOrderFormSubmit(event) {
   const orderLines = items.map(item => `${item.name} x${item.quantity}`).join('\n');
   const total = items.some(item => item.price === 0) ? 'Sur devis' : formatPrice(items.reduce((sum, item) => sum + item.price * item.quantity, 0));
 
-  const message = `Commande SENIDY TELECOM%0ANom: ${name}%0AEntreprise: ${company}%0ATéléphone: ${phone}%0AAdresse: ${address}%0A%0AProduits:%0A${orderLines}%0A%0ATotal: ${total}`;
-  sendOrder(message, phone, 'Commande SENIDY TELECOM');
+  const message = [
+    `Nom: ${name}`,
+    `Entreprise: ${company}`,
+    `Téléphone: ${phone}`,
+    `Adresse: ${address}`,
+    '',
+    'Produits:',
+    orderLines,
+    '',
+    `Total: ${total}`
+  ].join('\n');
+
+  openWhatsApp(message, 'Commande SENIDY TELECOM', SITE_WHATSAPP_NUMBER);
   closeCheckoutModal();
 }
 
@@ -246,9 +261,16 @@ function handleQuoteFormSubmit(event) {
   const need = needInput.value.trim();
   const messageText = messageInput.value.trim();
 
-  const subject = encodeURIComponent('Demande de devis SENIDY TELECOM');
-  const body = encodeURIComponent(`Nom: ${name}\nEntreprise: ${company}\nTéléphone: ${phone}\nEmail: ${email}\nBesoin: ${need}\nMessage: ${messageText}`);
-  window.location.href = `mailto:contact@senidytelecom.sn?subject=${subject}&body=${body}`;
+  const message = [
+    `Nom: ${name}`,
+    `Entreprise: ${company}`,
+    `Téléphone: ${phone}`,
+    `Email: ${email}`,
+    `Besoin: ${need}`,
+    `Message: ${messageText}`
+  ].join('\n');
+
+  openWhatsApp(message, 'Demande de devis SENIDY TELECOM', SITE_WHATSAPP_NUMBER);
 }
 
 
@@ -278,27 +300,27 @@ function saveTestimonials(testimonials) {
 
 function handleTestimonialSubmit(event) {
   event.preventDefault();
-  const nameInput = document.getElementById('testimonialName');
-  const companyInput = document.getElementById('testimonialCompany');
   const ratingInput = document.getElementById('testimonialRating');
   const messageInput = document.getElementById('testimonialMessage');
 
-  if (!nameInput || !companyInput || !ratingInput || !messageInput) {
+  if (!ratingInput || !messageInput) {
+    return;
+  }
+
+  const message = messageInput.value.trim();
+
+  if (!message) {
+    alert('Veuillez écrire votre témoignage.');
     return;
   }
 
   const testimonial = {
-    name: nameInput.value.trim(),
-    company: companyInput.value.trim(),
+    name: 'Anonyme',
+    company: 'Client',
     rating: Number(ratingInput.value),
-    message: messageInput.value.trim(),
+    message,
     date: new Date().toISOString()
   };
-
-  if (!testimonial.name || !testimonial.company || !testimonial.message) {
-    alert('Veuillez remplir tous les champs du témoignage.');
-    return;
-  }
 
   const testimonials = loadTestimonials();
   testimonials.unshift(testimonial);
@@ -308,14 +330,37 @@ function handleTestimonialSubmit(event) {
 }
 
 function prefillQuote(productName) {
+  const quoteFormElement = document.getElementById('quoteForm');
   const needField = document.getElementById('clientNeed');
   const nameField = document.getElementById('clientName');
+  const companyField = document.getElementById('clientCompany');
+  const phoneField = document.getElementById('clientPhone');
+  const emailField = document.getElementById('clientEmail');
+  const messageField = document.getElementById('clientMessage');
+
+  if (quoteFormElement) {
+    quoteFormElement.reset();
+  }
+
   if (needField) {
     needField.value = `Demande pour ${productName} - quantité souhaitée : `;
   }
   if (nameField) {
     nameField.focus();
   }
+  if (companyField) {
+    companyField.value = '';
+  }
+  if (phoneField) {
+    phoneField.value = '';
+  }
+  if (emailField) {
+    emailField.value = '';
+  }
+  if (messageField) {
+    messageField.value = '';
+  }
+
   window.location.hash = '#contact';
 }
 

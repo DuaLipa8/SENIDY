@@ -140,11 +140,15 @@ img {
   padding: 0.95rem 1.4rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .btn:hover {
   transform: translateY(-1px);
+  background-color: var(--blue-dark);
+  color: #ffffff;
+  border-color: var(--blue-dark);
+  box-shadow: 0 12px 34px rgba(43, 168, 196, 0.16);
 }
 
 .btn-primary {
@@ -164,6 +168,13 @@ img {
   background: #ffffff;
   color: var(--blue-dark);
   border: 1px solid rgba(43,168,196,0.25);
+}
+
+.btn-secondary:hover,
+.btn-outline:hover {
+  background-color: var(--blue);
+  color: #ffffff;
+  border-color: var(--blue);
 }
 
 .hero {
@@ -431,22 +442,12 @@ img {
   padding: 0 1.4rem 1.4rem;
 }
 
-/* Hover effect for product action buttons to match filter buttons */
+/* Hover effect for product action buttons to match the rest of the site */
 .product-actions .btn-outline,
 .product-actions .btn-secondary,
 .product-actions .add-cart,
 .product-actions .quote-product {
   transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
-}
-
-.product-actions .btn-outline:hover,
-.product-actions .btn-secondary:hover,
-.product-actions .add-cart:hover,
-.product-actions .quote-product:hover {
-  background: var(--blue);
-  color: #ffffff;
-  border-color: var(--blue);
-  box-shadow: 0 12px 34px rgba(43, 168, 196, 0.12);
 }
 
 .steps-grid,
