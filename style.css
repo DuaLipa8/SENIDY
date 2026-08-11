@@ -65,7 +65,11 @@ img {
   gap: 0.75rem;
 }
 
-/* logo image removed — styling cleared */
+.logo-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
 
 .brand-text {
   display: flex;
@@ -917,7 +921,8 @@ img {
   .product-grid,
   .steps-grid,
   .pricing-grid,
-  .testimonial-grid {
+  .testimonial-grid,
+  .benefits-grid {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -960,6 +965,7 @@ img {
   .steps-grid,
   .pricing-grid,
   .testimonial-grid,
+  .benefits-grid,
   .footer-grid {
     grid-template-columns: 1fr;
   }
