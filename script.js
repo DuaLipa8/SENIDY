@@ -583,6 +583,20 @@ function initApp() {
   if (navToggle) {
     navToggle.addEventListener('click', toggleMobileNav);
   }
+  if (siteNav) {
+    siteNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        siteNav.classList.remove('open');
+      });
+    });
+  }
+  document.addEventListener('click', (event) => {
+    if (siteNav && siteNav.classList.contains('open')) {
+      if (navToggle && !navToggle.contains(event.target) && !siteNav.contains(event.target)) {
+        siteNav.classList.remove('open');
+      }
+    }
+  });
   if (cartToggle) {
     cartToggle.addEventListener('click', openCart);
   }
